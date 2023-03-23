@@ -13,26 +13,27 @@ async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
     l = re.findall(patternSingle, text)
     rolls = [i[0] for i in l]
     res = calcRoll(rolls)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Rolando {rolls}... [**{res}**]")
+    str = f"_Rolando\.\.\._  {res}"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=str, parse_mode='MarkdownV2')
 
 
 def calcRoll(rolls):
+    text = ""
     res = 0
+    sum = 0
     pattern = r"(?P<operator>[+-]?)(?P<number>\d+)(d(?P<dice_size>\d+))?"
     for roll in rolls:
         dict = re.match(pattern, roll)
-        operator = dict['operator']
+        operator = -1 if dict['operator'] == '-' else 1
         number = int(dict['number'])
-        sum = 0
         if(dict['dice_size'] == None):
-            sum = number
+            sum += number * operator
+            text += f"{number * operator} "
         else:
             dice_size = int(dict['dice_size'])
             for _ in range(number):
                 rolled = randrange(1, dice_size)
-                sum += rolled
-        if operator == '-':
-            res -= sum
-        else:
-            res += sum
-    return res  
+                text += f"{rolled * operator} "
+                sum += rolled * operator
+
+    return f"\(*{sum}*\)  ||\[_{text}_\]||"  
