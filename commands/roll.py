@@ -35,3 +35,10 @@ def calcRoll(rolls):
                 rollList.append(f"{rolled * operator}")
                 sum += rolled * operator
     return f"\(*{re.escape(str(sum))}*\)  ||\[_ {re.escape(','.join(rollList))} _\]||"  
+
+#ayy lmao
+def diceRoll(ammount, dice_size):
+    sum = 0
+    for _ in range(ammount):
+        sum += secrets.choice(range(1, dice_size+1))
+    return sum
