@@ -1,6 +1,6 @@
 from telegram import *
 from telegram.ext import *
-from random import randrange 
+import secrets
 import re
 
 async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -18,8 +18,7 @@ async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def calcRoll(rolls):
-    text = ""
-    res = 0
+    rollList = []
     sum = 0
     pattern = r"(?P<operator>[+-]?)(?P<number>\d+)(d(?P<dice_size>\d+))?"
     for roll in rolls:
@@ -28,12 +27,11 @@ def calcRoll(rolls):
         number = int(dict['number'])
         if(dict['dice_size'] == None):
             sum += number * operator
-            text += f"{number * operator} "
+            rollList.append(f"{number * operator}")
         else:
             dice_size = int(dict['dice_size'])
             for _ in range(number):
-                rolled = randrange(1, dice_size)
-                text += f"{rolled * operator} "
+                rolled = secrets.choice(range(1, dice_size+1))
+                rollList.append(f"{rolled * operator}")
                 sum += rolled * operator
-
-    return f"\(*{sum}*\)  ||\[_{text}_\]||"  
+    return f"\(*{re.escape(str(sum))}*\)  ||\[_ {re.escape(','.join(rollList))} _\]||"  
