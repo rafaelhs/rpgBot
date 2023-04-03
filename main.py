@@ -2,9 +2,9 @@ import logging
 from telegram import *
 from telegram.ext import *
 import config
-import commands.misc as miscCommands
-import commands.roll as rollCommands   
-import commands.coc as cocCommands
+import modules.misc as miscCommands
+import modules.roll as rollCommands   
+import modules.coc as cocCommands
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

@@ -1,9 +1,6 @@
 from telegram import *
 from telegram.ext import *
-from commands.roll import diceRoll
-import secrets
-import re
-
+from modules.roll import diceRoll
 
 async def newCharacter(update: Update, context: ContextTypes.DEFAULT_TYPE):
     id = update.message.from_user['id']
