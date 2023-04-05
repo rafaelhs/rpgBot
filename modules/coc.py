@@ -56,23 +56,28 @@ async def san_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if character == None:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Nenhum personagem encontrado")
     else: 
+        id = character["ID"]
+        name = character["NOME"]
+        san = character["SAN"]
         sanLost = 0
         roll = diceRoll(1, 100)
-        text =  f"A sanidade de <b>{character['NOME']}</b> é testada..." 
-        text += f"\n<b>{roll}</b> <i>vs</i> <b>{character['SAN']}</b>\n"
+
+        text =  f"A sanidade de <b>{name}</b> é testada..." 
+        text += f"\n<b>{roll}</b> <i>vs</i> <b>{san}</b>"
         if roll <= character['SAN']:
             text += f"\n<b>Sucesso!</b>"
             sanLost = 1
         else:
             text += f"\n<b>Fracasso!</b>"
             sanLost = diceRoll(1, 6)
-        text += f"\n<b>{character['NOME']}</b> perde {sanLost} ponto(s) de sanidade"
-        character['SAN'] -= sanLost
-        if(character['SAN'] <= 0):
+        text += f"\n<b>{name}</b> perde {sanLost} ponto(s) de sanidade"
+        san -= sanLost
+        if(san <= 0):
             bot_db.delete_coc_character(character['ID'])
             text += f"\ne fica permanentemente insano..."
         else:
-            bot_db.update_coc_character(character)
+            bot_db.update_coc_character_attr("SAN", san, id)
+            
         await context.bot.send_message(chat_id=update.effective_chat.id, 
                                        text=text, 
                                        parse_mode='HTML')

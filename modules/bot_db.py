@@ -87,7 +87,6 @@ def update_coc_character(character):
             character['MP'], 
             character['ID'],
         )
-        #data = tuple(map(str, data))
         cursor.execute(query, data)
     except Exception as e:
         print(e)
@@ -98,8 +97,8 @@ def update_coc_character(character):
         
 def update_coc_character_attr(attr, value, id):
     try:
-        query = '''UPDATE COC_CHARACTER SET (?=?) WHERE ID=?;'''
-        cursor.execute(query, (attr, value, id))
+        query = f'''UPDATE COC_CHARACTER SET {attr}=? WHERE ID=?;'''
+        cursor.execute(query, (value, id))
     except Exception as e:
         print(e)
         print("Failed to update table")
