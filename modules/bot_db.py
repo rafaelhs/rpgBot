@@ -69,10 +69,9 @@ def get_coc_character(id):
     
 def update_coc_character(character):
     try:
-        query = '''UPDATE COC_CHARACTER SET
-                          (NOME=?, FOR=?, CON=?, TAM=?, DES=?, APA=?, INT=?, POD=?, EDU=?, SOR=?, SAN=?, HP=?, MP=?) 
-                          WHERE ID=?;'''
-
+        query = '''UPDATE COC_CHARACTER SET 
+                NOME=?, FOR=?, CON=?, TAM=?, DES=?, APA=?, INT=?, POD=?, EDU=?, SOR=?, SAN=?, HP=?, MP=? 
+                WHERE ID=?;'''
         data = (character['NOME'], 
             character['FOR'],   
             character['CON'], 
@@ -88,8 +87,10 @@ def update_coc_character(character):
             character['MP'], 
             character['ID'],
         )
+        #data = tuple(map(str, data))
         cursor.execute(query, data)
-    except Exception:
+    except Exception as e:
+        print(e)
         print("Failed to update table")
         connection.rollback()
     else:
@@ -99,7 +100,8 @@ def update_coc_character_attr(attr, value, id):
     try:
         query = '''UPDATE COC_CHARACTER SET (?=?) WHERE ID=?;'''
         cursor.execute(query, (attr, value, id))
-    except Exception:
+    except Exception as e:
+        print(e)
         print("Failed to update table")
         connection.rollback()
     else:

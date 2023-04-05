@@ -12,9 +12,8 @@ async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     l = re.findall(patternSingle, text)
     rolls = [i[0] for i in l]
-    res = calcRoll(rolls)
-    str = f"_Rolando\.\.\._  {res}"
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=str, parse_mode='MarkdownV2')
+    res = f"_Rolando\.\.\._  {calcRoll(rolls)}"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=res, parse_mode='MarkdownV2')
 
 
 def calcRoll(rolls):

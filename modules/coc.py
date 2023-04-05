@@ -21,7 +21,6 @@ async def get_character(update: Update, context: ContextTypes.DEFAULT_TYPE):
     character = bot_db.get_coc_character(update.message.from_user['id'])
     if character == None:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Nenhum personagem encontrado")
-
     else:  
         formated_character = formatCharacter(character)
         await context.bot.send_message(chat_id=update.effective_chat.id, text=formated_character, parse_mode='HTML')
@@ -51,3 +50,31 @@ def formatCharacter(character):
     line3 = f"INT: {character['INT']} EDU: {character['EDU']} APA: {character['APA']} POD: {character['POD']}\n" 
     line4 = f"SAN: {character['SAN']} SOR: {character['SOR']} HP: {character['HP']}"
     return "<pre>" + line1 + line2 + line3 + line4 + "</pre>"
+
+async def san_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    character = bot_db.get_coc_character(update.message.from_user['id'])
+    if character == None:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Nenhum personagem encontrado")
+    else: 
+        sanLost = 0
+        roll = diceRoll(1, 100)
+        text =  f"A sanidade de <b>{character['NOME']}</b> é testada..." 
+        text += f"\n<b>{roll}</b> <i>vs</i> <b>{character['SAN']}</b>\n"
+        if roll <= character['SAN']:
+            text += f"\n<b>Sucesso!</b>"
+            sanLost = 1
+        else:
+            text += f"\n<b>Fracasso!</b>"
+            sanLost = diceRoll(1, 6)
+        text += f"\n<b>{character['NOME']}</b> perde {sanLost} ponto(s) de sanidade"
+        character['SAN'] -= sanLost
+        if(character['SAN'] <= 0):
+            bot_db.delete_coc_character(character['ID'])
+            text += f"\ne fica permanentemente insano..."
+        else:
+            bot_db.update_coc_character(character)
+        await context.bot.send_message(chat_id=update.effective_chat.id, 
+                                       text=text, 
+                                       parse_mode='HTML')
+
+
