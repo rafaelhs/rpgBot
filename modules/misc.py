@@ -3,7 +3,7 @@ from telegram.ext import *
 from functools import wraps
 import config
 import constants
-
+from random import choice
 
 
 def restricted(func):
@@ -29,5 +29,6 @@ async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Comando não encontrado")
 
 async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print(update.message.text)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+    message = update.message.text
+    res = ''.join(choice((str.upper, str.lower))(char) for char in message)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=res)
