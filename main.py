@@ -6,8 +6,8 @@ import modules.misc as miscCommands
 import modules.roll as rollCommands   
 import modules.coc as cocCommands
 import modules.ose as oseCommands
-import modules.warhammer as washammerCommands
-
+import modules.warhammer as warhammerCommands
+import modules.names as namesCommands
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -26,7 +26,9 @@ if __name__ == '__main__':
     coc_get_character_handler = CommandHandler('cocGetChar', cocCommands.get_character)
     coc_san_handler = CommandHandler('san', cocCommands.san_test)
     ose_new_char_handler = CommandHandler('oseNewChar', oseCommands.newCharacter)
-    w40k_admech_handler = CommandHandler('voxCast', washammerCommands.vox)
+    w40k_admech_handler = CommandHandler('voxCast', warhammerCommands.vox)
+    names_spanish_handler = CommandHandler('espName', namesCommands.getSpanishNames)
+
 
     application.add_handler(start_handler)
     application.add_handler(help_handler)
@@ -36,11 +38,9 @@ if __name__ == '__main__':
     application.add_handler(coc_san_handler)
     application.add_handler(ose_new_char_handler)
     application.add_handler(w40k_admech_handler)
+    application.add_handler(names_spanish_handler)
 
     application.add_handler(test_handler)
     application.add_handler(unknown_handler) #added last
-
-    #bot_db.start_database()    
-
 
     application.run_polling()

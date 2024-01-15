@@ -13,4 +13,5 @@ HELP_TEXT = ("  🎲 RPG Bot 🎲\n"
              "\n"
              "🎲Tabelas Aleatórias🎲\n"
              "/voxCast - Passagens sacras do Cultus Mechanicus\n"
+             "/SpanishName [genero] - Gerador de nomes espanhos (sec XVI)"
              )
