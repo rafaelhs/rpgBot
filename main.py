@@ -6,6 +6,8 @@ import modules.misc as miscCommands
 import modules.roll as rollCommands   
 import modules.coc as cocCommands
 import modules.ose as oseCommands
+import modules.warhammer as washammerCommands
+
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     coc_get_character_handler = CommandHandler('cocGetChar', cocCommands.get_character)
     coc_san_handler = CommandHandler('san', cocCommands.san_test)
     ose_new_char_handler = CommandHandler('oseNewChar', oseCommands.newCharacter)
-
+    w40k_admech_handler = CommandHandler('voxCast', washammerCommands.vox)
 
     application.add_handler(start_handler)
     application.add_handler(help_handler)
@@ -33,7 +35,7 @@ if __name__ == '__main__':
     application.add_handler(coc_get_character_handler)
     application.add_handler(coc_san_handler)
     application.add_handler(ose_new_char_handler)
-
+    application.add_handler(w40k_admech_handler)
 
     application.add_handler(test_handler)
     application.add_handler(unknown_handler) #added last

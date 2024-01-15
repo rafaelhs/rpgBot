@@ -10,4 +10,7 @@ HELP_TEXT = ("  🎲 RPG Bot 🎲\n"
              "\n"
              "🗡️Oldschool Essentials🛡️\n"
              "/oseNewChar - Rola um novo personagem de OSE\n"
+             "\n"
+             "🎲Tabelas Aleatórias🎲\n"
+             "/voxCast - Passagens sacras do Cultus Mechanicus\n"
              )
