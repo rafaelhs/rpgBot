@@ -20,10 +20,10 @@ if __name__ == '__main__':
     help_handler = CommandHandler('help', miscCommands.help)
     roll_handler = CommandHandler('roll', rollCommands.roll)
     test_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), miscCommands.test)
-    coc_character_handler = CommandHandler('newcharacter', cocCommands.newCharacter)
-    coc_get_character_handler = CommandHandler('getcharacter', cocCommands.get_character)
+    coc_character_handler = CommandHandler('cocNewChar', cocCommands.newCharacter)
+    coc_get_character_handler = CommandHandler('cocGetChar', cocCommands.get_character)
     coc_san_handler = CommandHandler('san', cocCommands.san_test)
-    ose_new_char_handler = CommandHandler('oseChar', oseCommands.newCharacter)
+    ose_new_char_handler = CommandHandler('oseNewChar', oseCommands.newCharacter)
 
 
     application.add_handler(start_handler)
