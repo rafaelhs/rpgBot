@@ -1,4 +1,4 @@
 API_KEY = 'use you api key here'
-RESTRICT_USERS = False
+RESTRICTED = False
 LIST_OF_USERS = [12345]
 LIST_OF_CHATS = [12345, -12345]
