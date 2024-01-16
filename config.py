@@ -1,0 +1,4 @@
+API_KEY = 'api_key'
+RESTRICT_USERS = False
+LIST_OF_USERS = []
+LIST_OF_CHATS = []
