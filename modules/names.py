@@ -2,9 +2,10 @@ from telegram import *
 from telegram.ext import *
 import secrets
 import re
-
 import tables.spanishXVI as spanishNames
+from .misc import restricted
 
+@restricted
 async def getSpanishNames(update: Update, context: ContextTypes.DEFAULT_TYPE):
     pattern = re.compile("(f|female|feminino|mulher)")
     try:

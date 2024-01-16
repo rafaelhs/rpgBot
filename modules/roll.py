@@ -2,7 +2,9 @@ from telegram import *
 from telegram.ext import *
 import secrets
 import re
+from .misc import restricted
 
+@restricted
 async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = ''.join(context.args).lower()
     patternAll = r"([+-]?\d{1,3}(d\d{1,3})?)([+-]\d{1,3}(d\d{1,3})?)*"
@@ -14,7 +16,6 @@ async def roll(update: Update, context: ContextTypes.DEFAULT_TYPE):
     rolls = [i[0] for i in l]
     res = f"_Rolando\.\.\._  {calcRoll(rolls)}"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=res, parse_mode='MarkdownV2')
-
 
 def calcRoll(rolls):
     rollList = []
@@ -35,7 +36,6 @@ def calcRoll(rolls):
                 sum += rolled * operator
     return f"\(*{re.escape(str(sum))}*\)  ||\[_ {re.escape(','.join(rollList))} _\]||"  
 
-#ayy lmao
 def diceRoll(ammount, dice_size):
     sum = 0
     for _ in range(ammount):

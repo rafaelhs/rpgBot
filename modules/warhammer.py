@@ -2,7 +2,9 @@ from telegram import *
 from telegram.ext import *
 import secrets
 import tables.admech as admech
+from .misc import restricted
 
+@restricted
 async def vox(update: Update, context: ContextTypes.DEFAULT_TYPE):
     index = secrets.choice(range(0, 109))
     quote = '_' + admech.quotes[index][1] + '_'

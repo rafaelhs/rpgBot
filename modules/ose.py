@@ -1,12 +1,14 @@
 from telegram import *
 from telegram.ext import *
 from modules.roll import diceRoll
+from .misc import restricted
 
 CLASSES = ["Guerreiro", "Clérigo", "Ladrão", "Usuário de Magia", "Anão", "Elfo"]
 HD = [8, 6, 4, 4, 8, 6]
 MIN_HP = [6, 4, 2, 2, 6, 4]
 ALIGNMENT = ["Ordeiro", "Neutro", "Caótico"]
 
+@restricted
 async def newCharacter(update: Update, context: ContextTypes.DEFAULT_TYPE):
     classId = diceRoll(1, 6) - 1
     character = {

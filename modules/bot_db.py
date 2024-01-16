@@ -6,16 +6,16 @@ def start_database():
     try:
         cursor.execute('''CREATE TABLE IF NOT EXISTS COC_CHARACTER\
             (ID    INTEGER PRIMARY KEY NOT NULL,\
-            NOME   TEXT        NOT NULL,\
-            FOR    INTEGER     NOT NULL,\
+            NAME   TEXT        NOT NULL,\
+            STR    INTEGER     NOT NULL,\
             CON    INTEGER     NOT NULL,\
-            TAM    INTEGER     NOT NULL,\
-            DES    INTEGER     NOT NULL,\
-            APA    INTEGER     NOT NULL,\
+            SIZ    INTEGER     NOT NULL,\
+            DEX    INTEGER     NOT NULL,\
+            APP    INTEGER     NOT NULL,\
             INT    INTEGER     NOT NULL,\
-            POD    INTEGER     NOT NULL,\
+            POW    INTEGER     NOT NULL,\
             EDU    INTEGER     NOT NULL,\
-            SOR    INTEGER     NOT NULL,\
+            LUK    INTEGER     NOT NULL,\
             SAN    INTEGER     NOT NULL,\
             HP     INTEGER     NOT NULL,\
             MP     INTEGER     NOT NULL);''')
@@ -32,22 +32,23 @@ start_database()
 ###
 
 def create_coc_character(character):
+    print(character)
     try:
         query = '''INSERT INTO COC_CHARACTER
-                          (ID, NOME, FOR, CON, TAM, DES, APA, INT, POD, EDU, SOR, SAN, HP, MP) 
+                          (ID, NAME, STR, CON, SIZ, DEX, APP, INT, POW, EDU, LUK, SAN, HP, MP) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
         data = (character['ID'],
-            character['NOME'], 
-            character['FOR'],   
+            character['NAME'], 
+            character['STR'],   
             character['CON'], 
-            character['TAM'], 
-            character['DES'], 
-            character['APA'], 
+            character['SIZ'], 
+            character['DEX'], 
+            character['APP'], 
             character['INT'], 
-            character['POD'], 
+            character['POW'], 
             character['EDU'], 
-            character['SOR'], 
+            character['LUK'], 
             character['SAN'], 
             character['HP'], 
             character['MP'], 
@@ -70,18 +71,18 @@ def get_coc_character(id):
 def update_coc_character(character):
     try:
         query = '''UPDATE COC_CHARACTER SET 
-                NOME=?, FOR=?, CON=?, TAM=?, DES=?, APA=?, INT=?, POD=?, EDU=?, SOR=?, SAN=?, HP=?, MP=? 
+                NAME=?, STR=?, CON=?, SIZ=?, DEX=?, APP=?, INT=?, POW=?, EDU=?, LUK=?, SAN=?, HP=?, MP=? 
                 WHERE ID=?;'''
-        data = (character['NOME'], 
-            character['FOR'],   
+        data = (character['NAME'], 
+            character['STR'],   
             character['CON'], 
-            character['TAM'], 
-            character['DES'], 
-            character['APA'], 
+            character['SIZ'], 
+            character['DEX'], 
+            character['APP'], 
             character['INT'], 
-            character['POD'], 
+            character['POW'], 
             character['EDU'], 
-            character['SOR'], 
+            character['LUK'], 
             character['SAN'], 
             character['HP'], 
             character['MP'], 
@@ -105,7 +106,6 @@ def update_coc_character_attr(attr, value, id):
         connection.rollback()
     else:
         connection.commit()
-
 
 def delete_coc_character(id):
     try:
